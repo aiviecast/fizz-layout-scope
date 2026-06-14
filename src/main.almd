@@ -1,0 +1,11 @@
+import self as ls
+import json
+import value
+effect fn main() -> Unit = {
+  println(json.stringify(value.object([
+    ("mode_vertical", value.int(ls.scope_id(true, true, false))),    // mode 優先=1
+    ("mode_landscape", value.int(ls.scope_id(true, false, true))),    // mode 優先=0 (query 無視)
+    ("query_vertical", value.int(ls.scope_id(false, false, true))),   // mode 無→query=1
+    ("default", value.int(ls.scope_id(false, false, false))),         // 0
+  ])))
+}

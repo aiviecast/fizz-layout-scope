@@ -1,0 +1,22 @@
+// fizz_layout_scope — 横(16:9)/縦(9:16) レイアウトの scope 解決(§8 Overlay)。
+//
+// 責務 (一行): mode 指定とクエリフラグから、位置設定のスコープが「縦」かどうかを決める。
+//
+// openaituber positionScope.ts と同一の優先順位:
+//   1. mode が明示されていれば mode == "vertical"
+//   2. 無ければ URL クエリ (?vertical / ?layout=vertical)
+// これで横/縦間でランタイム切替しても positions が正しい scope を読む。
+//
+// window.location / localStorage キー組み立ては TS、判定ロジックは Almide。
+// scope 文字列ではなく **Bool(縦か否か)** を返し、ブラウザが ":vertical" suffix と
+// キーを組む(文字列を wasm 越しに返さない設計)。
+
+// 縦レイアウトか? has_mode: mode が明示されたか, mode_vertical: その mode が vertical か,
+// query_vertical: URL クエリが vertical を示すか。mode 優先。
+fn is_vertical(has_mode: Bool, mode_vertical: Bool, query_vertical: Bool) -> Bool =
+  if has_mode then mode_vertical else query_vertical
+
+// scope 種別 id: 0 = landscape (横), 1 = vertical (縦)。ブラウザは 1 のとき
+// キーに ":vertical" を付ける。
+fn scope_id(has_mode: Bool, mode_vertical: Bool, query_vertical: Bool) -> Int =
+  if is_vertical(has_mode, mode_vertical, query_vertical) then 1 else 0

@@ -1,0 +1,14 @@
+import self as ls
+test "mode takes priority over query" {
+  assert_eq(ls.is_vertical(true, true, false), true)    // mode=vertical 勝ち
+  assert_eq(ls.is_vertical(true, false, true), false)    // mode=landscape 勝ち (query 無視)
+}
+test "query used when no mode" {
+  assert_eq(ls.is_vertical(false, false, true), true)
+  assert_eq(ls.is_vertical(false, false, false), false)
+}
+test "scope_id: 1=vertical, 0=landscape" {
+  assert_eq(ls.scope_id(true, true, false), 1)
+  assert_eq(ls.scope_id(false, false, false), 0)
+  assert_eq(ls.scope_id(false, false, true), 1)
+}
