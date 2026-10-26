@@ -4,7 +4,7 @@ import float
 import int
 @export(wasm, "scope_id")
 fn scope_id(has_mode: Float, mode_vertical: Float, query_vertical: Float) -> Float =
-  int.to_float(ls.scope_id(has_mode > 0.5, mode_vertical > 0.5, query_vertical > 0.5))
+  float.from(ls.scope_id(has_mode > 0.5, mode_vertical > 0.5, query_vertical > 0.5))
 @export(wasm, "is_vertical")
 fn is_vertical(has_mode: Float, mode_vertical: Float, query_vertical: Float) -> Float =
   if ls.is_vertical(has_mode > 0.5, mode_vertical > 0.5, query_vertical > 0.5) then 1.0 else 0.0
