@@ -1,4 +1,4 @@
 [package]
 name = "fizz_layout_scope"
-version = "0.1.0"
+version = "0.2.0"
 description = "Fizz layout scope — resolve landscape(16:9)/portrait(9:16) scope for position-config key namespacing. One Almide core, native + wasm."
